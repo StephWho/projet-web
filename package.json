@@ -5,6 +5,7 @@
   "main": "demo_db_connection.js",
   "scripts": {
     "bdd:create": "node script_bdd/script_js/createDatabase.js",
+    "seed:create": "node script_bdd/script_js/createSeeds.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
