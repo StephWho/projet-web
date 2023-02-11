@@ -13,18 +13,27 @@ con.connect(function (err) {
   console.log("Connected!");
 });
 
+// supprimer la bdd si elle existe déjà
+
+const sql_drop = "DROP DATABASE IF EXISTS bike_renting;";
+con.query(sql_drop, function (err, result) {
+  if (err) throw err;
+  console.log("La database bike_renting a été supprimée");
+});
 // créer la bdd
 
 const sql = "CREATE DATABASE IF NOT EXISTS bike_renting;";
 con.query(sql, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("La base de données bike_renting a été créée");
+
 });
 
 const sql_dbb = "use bike_renting";
 con.query(sql_dbb, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("bike_renting a été sélectionnée");
+
 });
 
 const sql_types = `CREATE TABLE IF NOT EXISTS bike_types (
@@ -33,7 +42,8 @@ const sql_types = `CREATE TABLE IF NOT EXISTS bike_types (
   )`;
 con.query(sql_types, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("La table bike_types a été créée");
+
 });
 
 const sql_sizes = `CREATE TABLE IF NOT EXISTS bike_sizes (
@@ -42,7 +52,7 @@ const sql_sizes = `CREATE TABLE IF NOT EXISTS bike_sizes (
     )`;
 con.query(sql_sizes, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("La table bike_sizes a été créée");
 });
 
 const sql_brands = `CREATE TABLE IF NOT EXISTS bike_brands (
@@ -51,7 +61,7 @@ const sql_brands = `CREATE TABLE IF NOT EXISTS bike_brands (
       )`;
 con.query(sql_brands, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("La table bike_brands a été créée");
 });
 
 const sql_bikes = `CREATE TABLE IF NOT EXISTS bikes (
@@ -65,7 +75,7 @@ const sql_bikes = `CREATE TABLE IF NOT EXISTS bikes (
     )`;
 con.query(sql_bikes, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("La table bikes a été créée");
 });
 
 const sql_users = `CREATE TABLE IF NOT EXISTS users (
@@ -73,15 +83,13 @@ const sql_users = `CREATE TABLE IF NOT EXISTS users (
         lastname VARCHAR(255) NOT NULL,
         firstname VARCHAR(255) NOT NULL,
         birthdate DATE NOT NULL,
-        adress VARCHAR(255) NOT NULL,
+        address VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
-      password_user VARCHAR(255) NOT NULL,
-      id_bike INT (6) NOT NULL,
-      FOREIGN KEY (id_bike) REFERENCES bikes (id_bike)
+      password_user VARCHAR(255) NOT NULL
       )`;
 con.query(sql_users, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("La table users a été créée");
 });
 
 const sql_orders = `CREATE TABLE IF NOT EXISTS bike_orders (
@@ -97,5 +105,5 @@ const sql_orders = `CREATE TABLE IF NOT EXISTS bike_orders (
 )`;
 con.query(sql_orders, function (err, result) {
   if (err) throw err;
-  console.log("Result: ", result);
+  console.log("La table bike_orders a été créée");
 });
