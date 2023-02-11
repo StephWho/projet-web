@@ -72,8 +72,8 @@ for (let i = 1; i <= 60; i++) {
 }
 
 for (let i = 0; i < 5; i++) {
-  const lastname = faker.name.lastName();
-  const firstname = faker.name.firstName();
+  const lastname = faker.name.lastName().replaceAll("'", "''"); // pour éviter d'insérer des ' car erreur SQL
+  const firstname = faker.name.firstName().replaceAll("'", "''");
   const birthdate = faker.date.birthdate();
   const address = faker.address.streetAddress();
   const email = faker.internet.email();
@@ -99,3 +99,16 @@ for (let i = 0; i < 5; i++) {
   }
 }
 
+// compte admin
+
+const lastname = "admin";
+const firstname = "admin";
+const birthdate = faker.date.birthdate();
+const address = faker.address.streetAddress();
+const email = "admin@admin.fr";
+const password_user = "admin";
+const sql_user = `INSERT INTO users (id_user, lastname, firstname, birthdate, address, email, password_user, is_admin) VALUES (6, '${lastname}', '${firstname}', '${birthdate}', '${address}', '${email}', '${password_user}', true)`;
+con.query(sql_user, function (err, result) {
+  if (err) throw err;
+  console.log(`L'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`);
+});
