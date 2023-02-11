@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS bike_types (
+    id_bike_type INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    type_value VARCHAR(255) NOT NULL
+)
