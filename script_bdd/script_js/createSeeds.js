@@ -90,8 +90,10 @@ for (let i = 0; i < 5; i++) {
     // console.log(schedule_start.format('YYYY-MM-DD'), schedule_end.format('YYYY-MM-DD'));
     const delivery = faker.datatype.boolean();
     const insurance = faker.datatype.boolean();
+    const price = 140;
+    const is_paid = faker.datatype.boolean();
     const id_bike = Math.floor(Math.random() * 60)+1; // +1 pour éviter l'indice 0 
-    const sql_order = `INSERT INTO bike_orders (id_bike_order, schedule_start, schedule_end, delivery, insurance, id_user, id_bike) VALUES (${5*i+j}, '${schedule_start.format('YYYY-MM-DD')}', '${schedule_end.format('YYYY-MM-DD')}', ${delivery}, ${insurance}, ${i+1}, ${id_bike})`;
+    const sql_order = `INSERT INTO bike_orders (id_bike_order, schedule_start, schedule_end, delivery, insurance, price, is_paid, id_user, id_bike) VALUES (${5*i+j}, '${schedule_start.format('YYYY-MM-DD')}', '${schedule_end.format('YYYY-MM-DD')}', ${delivery}, ${insurance},${price}, ${is_paid}, ${i+1}, ${id_bike})`;
     con.query(sql_order, function (err, result) {
       if (err) throw err;
       console.log(`La commande ${5*i+j} pour l'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`);

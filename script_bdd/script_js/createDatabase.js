@@ -102,6 +102,8 @@ const sql_orders = `
     schedule_end DATETIME NOT NULL,
     delivery BOOLEAN NOT NULL,
     insurance BOOLEAN NOT NULL,
+    price FLOAT NOT NULL,
+    is_paid BOOLEAN DEFAULT false NOT NULL,
     id_user INT (6) NOT NULL,
     id_bike INT (6) NOT NULL,
     FOREIGN KEY (id_user) REFERENCES users (id_user),
