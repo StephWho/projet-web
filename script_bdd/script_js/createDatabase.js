@@ -35,33 +35,33 @@ con.query(sql_dbb, function (err, result) {
 });
 
 const sql_types = `
-  CREATE TABLE IF NOT EXISTS bike_types (
-    id_bike_type INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  CREATE TABLE IF NOT EXISTS types (
+    id_type INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     type_value VARCHAR(255) NOT NULL
   )`;
 con.query(sql_types, function (err, result) {
   if (err) throw err;
-  console.log("La table bike_types a été créée");
+  console.log("La table types a été créée");
 });
 
 const sql_sizes = `
-  CREATE TABLE IF NOT EXISTS bike_sizes (
-    id_bike_size INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  CREATE TABLE IF NOT EXISTS sizes (
+    id_size INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     size_value VARCHAR(255) NOT NULL
   )`;
 con.query(sql_sizes, function (err, result) {
   if (err) throw err;
-  console.log("La table bike_sizes a été créée");
+  console.log("La table sizes a été créée");
 });
 
 const sql_brands = `
-  CREATE TABLE IF NOT EXISTS bike_brands (
-    id_bike_brand INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  CREATE TABLE IF NOT EXISTS brands (
+    id_brand INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     brand_value VARCHAR(255) NOT NULL
   )`;
 con.query(sql_brands, function (err, result) {
   if (err) throw err;
-  console.log("La table bike_brands a été créée");
+  console.log("La table brands a été créée");
 });
 
 const sql_bikes = `
@@ -70,9 +70,9 @@ const sql_bikes = `
     id_type INT (6) NOT NULL,
     id_size INT (6) NOT NULL,
     id_brand INT (6) NOT NULL,
-    FOREIGN KEY (id_type) REFERENCES bike_types (id_bike_type),
-    FOREIGN KEY (id_size) REFERENCES bike_sizes (id_bike_size),
-    FOREIGN KEY (id_brand) REFERENCES bike_brands (id_bike_brand)
+    FOREIGN KEY (id_type) REFERENCES types (id_type),
+    FOREIGN KEY (id_size) REFERENCES sizes (id_size),
+    FOREIGN KEY (id_brand) REFERENCES brands (id_brand)
   )`;
 con.query(sql_bikes, function (err, result) {
   if (err) throw err;
@@ -96,8 +96,8 @@ con.query(sql_users, function (err, result) {
 });
 
 const sql_orders = `
-  CREATE TABLE IF NOT EXISTS bike_orders (
-    id_bike_order INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  CREATE TABLE IF NOT EXISTS orders (
+    id_order INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     schedule_start DATETIME NOT NULL,
     schedule_end DATETIME NOT NULL,
     delivery BOOLEAN NOT NULL,
@@ -111,5 +111,5 @@ const sql_orders = `
   )`;
 con.query(sql_orders, function (err, result) {
   if (err) throw err;
-  console.log("La table bike_orders a été créée");
+  console.log("La table orders a été créée");
 });

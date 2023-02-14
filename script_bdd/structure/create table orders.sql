@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS bike_orders (
-    id_bike_order INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS orders (
+    id_order INT (6) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     schedule_start DATETIME NOT NULL,
     schedule_end DATETIME NOT NULL,
     delivery BOOLEAN NOT NULL,

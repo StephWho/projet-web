@@ -6,7 +6,5 @@ CREATE TABLE IF NOT EXISTS users (
     adress VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password_user VARCHAR(255) NOT NULL,
-    is_admin BOOLEAN DEFAULT false NOT NULL,
-    id_bike INT (6) NOT NULL,
-    FOREIGN KEY (id_bike) REFERENCES bikes (id_bike)
+    is_admin BOOLEAN DEFAULT false NOT NULL
 )
