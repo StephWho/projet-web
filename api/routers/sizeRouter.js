@@ -4,9 +4,9 @@ const sizeRouter = express.Router();
 
 // route getAll
 sizeRouter.get("/", async (req, res) => {
-    const sizes = await sizeController.getAll();
-    res.send(sizes);
-  });
+  const sizes = await sizeController.getAll();
+  res.send(sizes);
+});
 
 // route getOne
 sizeRouter.get("/:id", async (req, res) => {
@@ -18,7 +18,6 @@ sizeRouter.get("/:id", async (req, res) => {
 // route postOne
 sizeRouter.post("/", async (req, res) => {
   const body = req.body;
-  console.log(body);
   const size = await sizeController.postOne(body);
   res.send(size);
 });

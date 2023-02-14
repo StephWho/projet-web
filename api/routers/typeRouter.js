@@ -4,9 +4,9 @@ const typeRouter = express.Router();
 
 // route getAll
 typeRouter.get("/", async (req, res) => {
-    const types = await typeController.getAll();
-    res.send(types);
-  });
+  const types = await typeController.getAll();
+  res.send(types);
+});
 
 // route getOne
 typeRouter.get("/:id", async (req, res) => {
@@ -18,7 +18,6 @@ typeRouter.get("/:id", async (req, res) => {
 // route postOne
 typeRouter.post("/", async (req, res) => {
   const body = req.body;
-  console.log(body);
   const type = await typeController.postOne(body);
   res.send(type);
 });

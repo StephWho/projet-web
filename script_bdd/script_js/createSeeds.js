@@ -1,5 +1,5 @@
-const { faker } = require('@faker-js/faker');
-const dayjs = require('dayjs');
+const { faker } = require("@faker-js/faker");
+const dayjs = require("dayjs");
 
 // get the client
 const mysql = require("mysql2");
@@ -9,17 +9,17 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "bike_renting"
+  database: "bike_renting",
 });
 
 con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-})
+});
 
 // purger les tables pour éviter les doublons
 
-const table_purger = ['brands', 'orders', 'sizes', 'types', 'bikes', 'users'];
+const table_purger = ["brands", "orders", "sizes", "types", "bikes", "users"];
 table_purger.forEach((table) => {
   const sql_purge = `
     DELETE FROM ${table}
@@ -32,11 +32,11 @@ table_purger.forEach((table) => {
 
 // créer les seeds
 
-const types = ['VTT', 'VTC', 'BMX', 'Velo de route'];
+const types = ["VTT", "VTC", "BMX", "Velo de route"];
 types.forEach((type, index) => {
   const sql_type = `
     INSERT INTO types (id_type, type_value) 
-    VALUES (${index+1}, '${type}')
+    VALUES (${index + 1}, '${type}')
   `;
   con.query(sql_type, function (err, result) {
     if (err) throw err;
@@ -44,11 +44,11 @@ types.forEach((type, index) => {
   });
 });
 
-const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 sizes.forEach((size, index) => {
   const sql_size = `
     INSERT INTO sizes (id_size, size_value) 
-    VALUES (${index+1}, '${size}')
+    VALUES (${index + 1}, '${size}')
   `;
   con.query(sql_size, function (err, result) {
     if (err) throw err;
@@ -56,11 +56,11 @@ sizes.forEach((size, index) => {
   });
 });
 
-const brands = ['BTWIN', 'MONGOOSE', 'RIVERSIDE', 'ROCKRIDER'];
+const brands = ["BTWIN", "MONGOOSE", "RIVERSIDE", "ROCKRIDER"];
 brands.forEach((brand, index) => {
   const sql_brand = `
     INSERT INTO brands (id_brand, brand_value) 
-    VALUES (${index+1}, '${brand}')
+    VALUES (${index + 1}, '${brand}')
   `;
   con.query(sql_brand, function (err, result) {
     if (err) throw err;
@@ -77,7 +77,7 @@ for (let i = 1; i <= 60; i++) {
   // console.log(idBikeBrand+1, brands[idBikeBrand]);
   const sql_bike = `
     INSERT INTO bikes (id_bike, id_type, id_size, id_brand) 
-    VALUES (${i}, ${idType+1}, ${idSize+1}, ${idBrand+1})
+    VALUES (${i}, ${idType + 1}, ${idSize + 1}, ${idBrand + 1})
   `;
   con.query(sql_bike, function (err, result) {
     if (err) throw err;
@@ -88,35 +88,54 @@ for (let i = 1; i <= 60; i++) {
 for (let i = 0; i < 5; i++) {
   const lastname = faker.name.lastName().replaceAll("'", "''"); // pour éviter d'insérer des ' car erreur SQL
   const firstname = faker.name.firstName().replaceAll("'", "''");
-  const birthdate = dayjs (faker.date.birthdate({min: 18, max: 65, mode: 'age'}));
+  const birthdate = dayjs(
+    faker.date.birthdate({ min: 18, max: 65, mode: "age" })
+  );
   const address = faker.address.streetAddress().replaceAll("'", "''");
   const email = faker.internet.email();
   const password_user = "password";
   const sql_user = `
     INSERT INTO users (id_user, lastname, firstname, birthdate, address, email, password_user) 
-    VALUES (${i+1}, '${lastname}', '${firstname}', '${birthdate.format('YYYY-MM-DD')}', '${address}', '${email}', '${password_user}')
+    VALUES (${i + 1}, '${lastname}', '${firstname}', '${birthdate.format(
+    "YYYY-MM-DD"
+  )}', '${address}', '${email}', '${password_user}')
   `;
   con.query(sql_user, function (err, result) {
     if (err) throw err;
-    console.log(`L'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`);
+    console.log(
+      `L'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`
+    );
   });
-  
+
   for (let j = 1; j <= 5; j++) {
-    const schedule_start = dayjs (faker.date.future()); //librairie pour faciliter la gestion de la date
-    const schedule_end = schedule_start.add(14, 'day');
+    let schedule_start;
+    if (faker.datatype.boolean()) {
+      schedule_start = dayjs(faker.date.past()); //librairie pour faciliter la gestion de la date
+    } else {
+      schedule_start = dayjs(faker.date.future()); //librairie pour faciliter la gestion de la date
+    }
+    const schedule_end = schedule_start.add(14, "day");
     // console.log(schedule_start.format('YYYY-MM-DD'), schedule_end.format('YYYY-MM-DD'));
     const delivery = faker.datatype.boolean();
     const insurance = faker.datatype.boolean();
     const price = 140;
     const is_paid = faker.datatype.boolean();
-    const id_bike = Math.floor(Math.random() * 60)+1; // +1 pour éviter l'indice 0 
+    const id_bike = Math.floor(Math.random() * 60) + 1; // +1 pour éviter l'indice 0
     const sql_order = `
       INSERT INTO orders (id_order, schedule_start, schedule_end, delivery, insurance, price, is_paid, id_user, id_bike) 
-      VALUES (${5*i+j}, '${schedule_start.format('YYYY-MM-DD')}', '${schedule_end.format('YYYY-MM-DD')}', ${delivery}, ${insurance},${price}, ${is_paid}, ${i+1}, ${id_bike})
+      VALUES (${5 * i + j}, '${schedule_start.format(
+      "YYYY-MM-DD"
+    )}', '${schedule_end.format(
+      "YYYY-MM-DD"
+    )}', ${delivery}, ${insurance},${price}, ${is_paid}, ${i + 1}, ${id_bike})
     `;
     con.query(sql_order, function (err, result) {
       if (err) throw err;
-      console.log(`La commande ${5*i+j} pour l'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`);
+      console.log(
+        `La commande ${
+          5 * i + j
+        } pour l'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`
+      );
     });
   }
 }
@@ -125,15 +144,21 @@ for (let i = 0; i < 5; i++) {
 
 const lastname = "admin";
 const firstname = "admin";
-const birthdate = dayjs (faker.date.birthdate({min: 18, max: 65, mode: 'age'}));
+const birthdate = dayjs(
+  faker.date.birthdate({ min: 18, max: 65, mode: "age" })
+);
 const address = faker.address.streetAddress().replaceAll("'", "''");
 const email = "admin@admin.fr";
 const password_user = "admin";
 const sql_user = `
   INSERT INTO users (id_user, lastname, firstname, birthdate, address, email, password_user, is_admin) 
-  VALUES (6, '${lastname}', '${firstname}', '${birthdate.format('YYYY-MM-DD')}', '${address}', '${email}', '${password_user}', true)
+  VALUES (6, '${lastname}', '${firstname}', '${birthdate.format(
+  "YYYY-MM-DD"
+)}', '${address}', '${email}', '${password_user}', true)
 `;
 con.query(sql_user, function (err, result) {
   if (err) throw err;
-  console.log(`L'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`);
+  console.log(
+    `L'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`
+  );
 });

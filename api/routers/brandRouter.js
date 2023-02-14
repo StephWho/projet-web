@@ -4,9 +4,9 @@ const brandRouter = express.Router();
 
 // route getAll
 brandRouter.get("/", async (req, res) => {
-    const brands = await brandController.getAll();
-    res.send(brands);
-  });
+  const brands = await brandController.getAll();
+  res.send(brands);
+});
 
 // route getOne
 brandRouter.get("/:id", async (req, res) => {
@@ -18,7 +18,6 @@ brandRouter.get("/:id", async (req, res) => {
 // route postOne
 brandRouter.post("/", async (req, res) => {
   const body = req.body;
-  console.log(body);
   const brand = await brandController.postOne(body);
   res.send(brand);
 });

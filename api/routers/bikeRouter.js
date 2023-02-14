@@ -4,21 +4,20 @@ const bikeRouter = express.Router();
 
 // route getAll
 bikeRouter.get("/", async (req, res) => {
-    const bikes = await bikeController.getAll();
-    res.send(bikes);
-  });
+  const bikes = await bikeController.getAll();
+  res.send(bikes);
+});
 
 // route getOne
 bikeRouter.get("/:id", async (req, res) => {
-    const id = req.params.id;
-    const bike = await bikeController.getById(id);
-    res.send(bike);
-  });  
+  const id = req.params.id;
+  const bike = await bikeController.getById(id);
+  res.send(bike);
+});
 
 // route postOne
 bikeRouter.post("/", async (req, res) => {
   const body = req.body;
-  console.log(body);
   const bike = await bikeController.postOne(body);
   res.send(bike);
 });

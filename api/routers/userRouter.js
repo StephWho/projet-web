@@ -4,9 +4,9 @@ const userRouter = express.Router();
 
 // route getAll
 userRouter.get("/", async (req, res) => {
-    const users = await userController.getAll();
-    res.send(users);
-  });
+  const users = await userController.getAll();
+  res.send(users);
+});
 
 // route getOne
 userRouter.get("/:id", async (req, res) => {
@@ -18,7 +18,6 @@ userRouter.get("/:id", async (req, res) => {
 // route postOne (signup)
 userRouter.post("/", async (req, res) => {
   const body = req.body;
-  console.log(body);
   const user = await userController.postOne(body);
   res.send(user);
 });
@@ -26,7 +25,6 @@ userRouter.post("/", async (req, res) => {
 // route postUserByEmailandPassword (signin)
 userRouter.post("/signin", async (req, res) => {
   const body = req.body;
-  console.log(body);
   const user = await userController.postUserByEmailAndPassword(body);
   res.send(user);
 });
