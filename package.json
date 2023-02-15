@@ -21,6 +21,7 @@
   "homepage": "https://github.com/StephWho/projet-web#readme",
   "dependencies": {
     "bignumber.js": "^9.0.0",
+    "bootstrap": "^3.4.1",
     "core-util-is": "^1.0.3",
     "dayjs": "^1.11.7",
     "express": "^4.18.2",

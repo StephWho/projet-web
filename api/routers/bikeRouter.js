@@ -8,12 +8,22 @@ bikeRouter.get("/", async (req, res) => {
   res.send(bikes);
 });
 
+// // route getAllAvailableBikes
+// bikeRouter.get("/availableBikes", async (req, res) => {
+//   const start = req.query.start;
+//   const end = req.query.end;
+//   console.log(req.query);
+//   const bikes = await bikeController.getAllAvailableBikes(start, end);
+//   res.send(bikes);
+// });
+
 // route getOne
 bikeRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
   const bike = await bikeController.getById(id);
   res.send(bike);
 });
+
 
 // route postOne
 bikeRouter.post("/", async (req, res) => {
