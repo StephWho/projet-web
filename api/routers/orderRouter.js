@@ -8,10 +8,17 @@ orderRouter.get("/", async (req, res) => {
   res.send(orders);
 });
 
-// route getOne
+// route getOneById
 orderRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
-  const order = await orderController.getById(id);
+  const order = await orderController.getOneById(id);
+  res.send(order);
+});
+
+// route getAllByIdUser
+orderRouter.get("/userId/:id", async (req, res) => {
+  const id = req.params.id;
+  const order = await orderController.getAllByIdUser(id);
   res.send(order);
 });
 

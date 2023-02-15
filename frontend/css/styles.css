@@ -1,0 +1,21 @@
+.indication {
+  text-align: center;
+  font-size: 15px;
+  color: white;
+  border-radius: 10px;
+  padding: 12px;
+  background: rgb(56, 95, 202);
+}
+
+.login {
+  float: left;
+  margin-left: 20px;
+  width: 350px;
+  text-align: right;
+}
+
+#list-order {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

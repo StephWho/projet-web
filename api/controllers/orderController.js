@@ -11,16 +11,28 @@ const orderController = {
     `;
     return query(sqlGetAll);
   },
-  getById(id) {
+  getOneById(id) {
     const sqlGetById = `
         SELECT id_order, schedule_start, schedule_end, delivery, insurance, price, is_paid, orders.id_user, orders.id_bike
         FROM orders 
         INNER JOIN users ON orders.id_user = users.id_user 
         INNER JOIN bikes ON orders.id_bike = bikes.id_bike  
         WHERE id_order = ?
-    `;
+        `;
     return query(sqlGetById, [id]);
   },
+
+  getAllByIdUser(id) {
+    const sqlGetAllByIdUser = `
+            SELECT id_order, schedule_start, schedule_end, delivery, insurance, price, is_paid, orders.id_user, orders.id_bike
+            FROM orders 
+            INNER JOIN users ON orders.id_user = users.id_user 
+            INNER JOIN bikes ON orders.id_bike = bikes.id_bike  
+            WHERE orders.id_user = ?
+        `;
+    return query(sqlGetAllByIdUser, [id]);
+  },
+
   getAllPaid(isPaid) {
     let isPaidSQL;
     if (isPaid == "true") {
@@ -85,7 +97,7 @@ const orderController = {
     ]);
 
     const insertId = results.insertId;
-    return this.getById(insertId);
+    return this.sqlPostOne(insertId);
   },
 
   async putOne(
@@ -117,7 +129,7 @@ const orderController = {
       idBike,
       idOrder,
     ]);
-    return this.getById(idOrder);
+    return this.sqlputOne(idOrder);
   },
 
   deleteOne(id) {
