@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    working_dir: /mysql/data
+    volumes:
+      - .:/application
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=bike_renting
+      # - MYSQL_USER=
+      # - MYSQL_PASSWORD=
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      # PMA_USER:
+      # PMA_PASSWORD:
+      MYSQL_ROOT_PASSWORD: password
+      # MYSQL_USER:
+      # MYSQL_PASSWORD:
+    ports:
+      - "82:80"
+  api:
+    image: node:7.7.2-alpine
+    command: npm run back:prod
+    container_name: api-node
+    working_dir: /application
+    volumes:
+      - .:/application
+    ports:
+      - "80:3000"
+  frontend:
+    image: nginx:alpine
+    container_name: frontend
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "81:80"
