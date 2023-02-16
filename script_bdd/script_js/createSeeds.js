@@ -4,7 +4,6 @@ const dayjs = require("dayjs");
 // get the client
 const mysql = require("mysql2");
 
-// create the connection, specify bluebird as Promise
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -24,7 +23,7 @@ table_purger.forEach((table) => {
   const sql_purge = `
     DELETE FROM ${table}
   `;
-  con.query(sql_purge, function (err, result) {
+  con.query(sql_purge, function (err) {
     if (err) throw err;
     console.log(`La table ${table} a bien été supprimée`);
   });
@@ -38,7 +37,7 @@ types.forEach((type, index) => {
     INSERT INTO types (id_type, type_value) 
     VALUES (${index + 1}, '${type}')
   `;
-  con.query(sql_type, function (err, result) {
+  con.query(sql_type, function (err) {
     if (err) throw err;
     console.log(`Le type de vélo ${type} a bien été ajoutée`);
   });
@@ -50,7 +49,7 @@ sizes.forEach((size, index) => {
     INSERT INTO sizes (id_size, size_value) 
     VALUES (${index + 1}, '${size}')
   `;
-  con.query(sql_size, function (err, result) {
+  con.query(sql_size, function (err) {
     if (err) throw err;
     console.log(`La taille de vélo ${size} a bien été ajoutée`);
   });
@@ -62,7 +61,7 @@ brands.forEach((brand, index) => {
     INSERT INTO brands (id_brand, brand_value) 
     VALUES (${index + 1}, '${brand}')
   `;
-  con.query(sql_brand, function (err, result) {
+  con.query(sql_brand, function (err) {
     if (err) throw err;
     console.log(`La marque de vélo ${brand} a bien été ajoutée`);
   });
@@ -79,7 +78,7 @@ for (let i = 1; i <= 60; i++) {
     INSERT INTO bikes (id_bike, id_type, id_size, id_brand) 
     VALUES (${i}, ${idType + 1}, ${idSize + 1}, ${idBrand + 1})
   `;
-  con.query(sql_bike, function (err, result) {
+  con.query(sql_bike, function (err) {
     if (err) throw err;
     console.log(`Le vélo ${i} a bien été ajoutée`);
   });
@@ -100,7 +99,7 @@ for (let i = 0; i < 5; i++) {
     "YYYY-MM-DD"
   )}', '${address}', '${email}', '${password_user}')
   `;
-  con.query(sql_user, function (err, result) {
+  con.query(sql_user, function (err) {
     if (err) throw err;
     console.log(
       `L'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`
@@ -129,7 +128,7 @@ for (let i = 0; i < 5; i++) {
       "YYYY-MM-DD"
     )}', ${delivery}, ${insurance},${price}, ${is_paid}, ${i + 1}, ${id_bike})
     `;
-    con.query(sql_order, function (err, result) {
+    con.query(sql_order, function (err) {
       if (err) throw err;
       console.log(
         `La commande ${
@@ -156,7 +155,7 @@ const sql_user = `
   "YYYY-MM-DD"
 )}', '${address}', '${email}', '${password_user}', true)
 `;
-con.query(sql_user, function (err, result) {
+con.query(sql_user, function (err) {
   if (err) throw err;
   console.log(
     `L'utilisateur ${firstname} ${lastname.toUpperCase()} a bien été ajoutée`
